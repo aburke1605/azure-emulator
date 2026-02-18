@@ -1,4 +1,5 @@
 import argparse
+import yaml
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -19,7 +20,10 @@ parser.add_argument(
 args = parser.parse_args()
 
 if args.new:
-    pass
+    yaml.dump(
+        {"services": {}, "volumes": {}},
+        open("compose.yml", "w")
+    )
 
 if args.init:
     if "database" in args.init:
