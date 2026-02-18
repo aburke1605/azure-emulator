@@ -6,7 +6,21 @@ parser.add_argument(
     action='store_true',
     help="create a new blank stack"
 )
+parser.add_argument(
+    "--init",
+    type=str,
+    nargs="+",
+    choices=[
+        "webapp",
+        "database",
+    ],
+    help="add service(s) to the stack"
+)
 args = parser.parse_args()
 
-print(args.new)
+if args.new:
+    pass
 
+if args.init:
+    if "database" in args.init:
+        pass
