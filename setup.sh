@@ -1,3 +1,5 @@
+# TODO: ensure docker, postgresql, etc installed
+
 # create venv
 if [ ! -d $PWD/.venv ]; then
   python3 -m venv .venv

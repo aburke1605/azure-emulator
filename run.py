@@ -1,4 +1,5 @@
 import argparse
+import subprocess
 import yaml
 
 parser = argparse.ArgumentParser()
@@ -17,6 +18,11 @@ parser.add_argument(
     ],
     help="add service(s) to the stack"
 )
+parser.add_argument(
+    "--up",
+    action='store_true',
+    help="emulate deployment"
+)
 args = parser.parse_args()
 
 if args.new:
@@ -30,3 +36,6 @@ if args.init:
     if "database" in args.init:
         config["services"]["database"] = yaml.safe_load(open("templates/database.yml", "r"))
     yaml.safe_dump(config, open("compose.yml", "w"))
+
+if args.up:
+    result = subprocess.run(["docker", "compose", "up"])
