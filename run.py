@@ -2,11 +2,11 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--test",
-    type=str,
-    required=True
+    "--new",
+    action='store_true',
+    help="create a new blank stack"
 )
 args = parser.parse_args()
 
-print(args.test)
+print(args.new)
 
