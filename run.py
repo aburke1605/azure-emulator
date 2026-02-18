@@ -20,11 +20,13 @@ parser.add_argument(
 args = parser.parse_args()
 
 if args.new:
-    yaml.dump(
+    yaml.safe_dump(
         {"services": {}, "volumes": {}},
         open("compose.yml", "w")
     )
 
 if args.init:
+    config = yaml.safe_load(open("compose.yml", "r"))
     if "database" in args.init:
-        pass
+        config["services"]["database"] = yaml.safe_load(open("templates/database.yml", "r"))
+    yaml.safe_dump(config, open("compose.yml", "w"))
