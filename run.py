@@ -26,21 +26,30 @@ def down(args):
 
 
 parser = argparse.ArgumentParser()
-
 subparsers = parser.add_subparsers(
     dest="command",
     required=True
 )
 
-subparsers.add_parser(
-    "new",
-    help="create a new blank stack"
-).set_defaults(func=new)
 
-subparsers.add_parser(
+def add_subparser(name: str, func, *args, **kwargs):
+    p = subparsers.add_parser(name, **kwargs)
+    p.set_defaults(func=func)
+    return p
+
+
+add_subparser(
+    "new",
+    new,
+    help="create a new blank stack"
+)
+
+add_subparser(
     "init",
+    init,
     help="add default service(s) to the stack"
-).add_argument(
+)\
+.add_argument(
     "services",
     type=str,
     nargs="+",
@@ -49,17 +58,19 @@ subparsers.add_parser(
         "database",
     ],
     help="list of service names to add"
-).set_defaults(func=init)
+)
 
-subparsers.add_parser(
+add_subparser(
     "up",
+    up,
     help="emulate deployment"
-).set_defaults(func=up)
+)
 
-subparsers.add_parser(
+add_subparser(
     "down",
+    down,
     help="destroy emulator"
-).set_defaults(func=down)
+)
 
 args = parser.parse_args()
 args.func(args)
