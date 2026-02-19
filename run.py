@@ -41,20 +41,28 @@ parser_down = subparsers.add_parser(
 
 args = parser.parse_args()
 
-if args.new:
+def new():
     yaml.safe_dump(
         {"services": {}, "volumes": {}},
         open("compose.yml", "w")
     )
 
-if args.init:
+def init():
     config = yaml.safe_load(open("compose.yml", "r"))
-    if "database" in args.init:
+    if "database" in args.services:
         config["services"]["database"] = yaml.safe_load(open("templates/database.yml", "r"))
     yaml.safe_dump(config, open("compose.yml", "w"))
 
-if args.up:
+def up():
     result = subprocess.run(["docker", "compose", "up", "--detach"])
 
-if args.down:
+def down():
     result = subprocess.run(["docker", "compose", "down"])
+
+switcher = {
+    "new": new,
+    "init": init,
+    "up": up,
+    "down": down
+}
+switcher.get(args.command, lambda: None)()
