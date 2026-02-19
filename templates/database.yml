@@ -1,1 +1,1 @@
-image: postgresql
+image: postgres:latest
