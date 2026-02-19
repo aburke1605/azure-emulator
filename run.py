@@ -5,7 +5,7 @@ import yaml
 
 def new(_):
     yaml.safe_dump(
-        {"services": {}, "volumes": {}},
+        {"services": {}},
         open("compose.yml", "w")
     )
 
