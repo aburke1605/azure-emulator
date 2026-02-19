@@ -23,6 +23,11 @@ parser.add_argument(
     action='store_true',
     help="emulate deployment"
 )
+parser.add_argument(
+    "--down",
+    action='store_true',
+    help="destroy emulator"
+)
 args = parser.parse_args()
 
 if args.new:
@@ -39,3 +44,6 @@ if args.init:
 
 if args.up:
     result = subprocess.run(["docker", "compose", "up", "--detach"])
+
+if args.down:
+    result = subprocess.run(["docker", "compose", "down"])
