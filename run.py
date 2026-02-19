@@ -3,31 +3,42 @@ import subprocess
 import yaml
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--new",
-    action='store_true',
+
+subparsers = parser.add_subparsers(
+    dest="command",
+    required=True
+)
+
+parser_new = subparsers.add_parser(
+    "new",
     help="create a new blank stack"
 )
-parser.add_argument(
-    "--init",
+
+parser_init = subparsers.add_parser(
+    "init",
+    help="add default service(s) to the stack"
+)
+parser_init.add_argument(
+    "services",
     type=str,
     nargs="+",
     choices=[
         "webapp",
         "database",
     ],
-    help="add service(s) to the stack"
+    help="list of service names to add"
 )
-parser.add_argument(
-    "--up",
-    action='store_true',
+
+parser_up = subparsers.add_parser(
+    "up",
     help="emulate deployment"
 )
-parser.add_argument(
-    "--down",
-    action='store_true',
+
+parser_down = subparsers.add_parser(
+    "down",
     help="destroy emulator"
 )
+
 args = parser.parse_args()
 
 if args.new:
