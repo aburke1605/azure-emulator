@@ -1,3 +1,5 @@
-image: postgres:latest
+image: postgres:latest  # use postgres by default
 environment:
-  POSTGRES_PASSWORD: password
+  POSTGRES_PASSWORD: password  # required
+  expose:
+    - "5000"  # choose a port for database communication
