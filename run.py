@@ -3,7 +3,7 @@ import subprocess
 import yaml
 
 
-def new(args):
+def new(_):
     yaml.safe_dump(
         {"services": {}, "volumes": {}},
         open("compose.yml", "w")
@@ -17,11 +17,11 @@ def init(args):
     yaml.safe_dump(config, open("compose.yml", "w"))
 
 
-def up(args):
+def up(_):
     result = subprocess.run(["docker", "compose", "up", "--detach"])
 
 
-def down(args):
+def down(_):
     result = subprocess.run(["docker", "compose", "down"])
 
 
@@ -38,17 +38,11 @@ def add_subparser(name: str, func, *args, **kwargs):
     return p
 
 
-add_subparser(
-    "new",
-    new,
-    help="create a new blank stack"
-)
+add_subparser("new", new,
+    help="create a new blank stack")
 
-add_subparser(
-    "init",
-    init,
-    help="add default service(s) to the stack"
-)\
+add_subparser("init", init,
+    help="add default service(s) to the stack")\
 .add_argument(
     "services",
     type=str,
@@ -60,17 +54,11 @@ add_subparser(
     help="list of service names to add"
 )
 
-add_subparser(
-    "up",
-    up,
-    help="emulate deployment"
-)
+add_subparser("up", up,
+    help="emulate deployment")
 
-add_subparser(
-    "down",
-    down,
-    help="destroy emulator"
-)
+add_subparser("down", down,
+    help="destroy emulator")
 
 args = parser.parse_args()
 args.func(args)
