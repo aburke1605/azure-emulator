@@ -32,7 +32,7 @@ subparsers = parser.add_subparsers(
 )
 
 
-def add_subparser(name: str, func, *args, **kwargs):
+def add_subparser(name: str, func, **kwargs):
     p = subparsers.add_parser(name, **kwargs)
     p.set_defaults(func=func)
     return p
