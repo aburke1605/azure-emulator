@@ -38,4 +38,4 @@ if args.init:
     yaml.safe_dump(config, open("compose.yml", "w"))
 
 if args.up:
-    result = subprocess.run(["docker", "compose", "up"])
+    result = subprocess.run(["docker", "compose", "up", "--detach"])
